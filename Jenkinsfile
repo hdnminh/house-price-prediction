@@ -1,9 +1,11 @@
 pipeline {
-    agent any
+    agent any // Jenkin chon bat ky agent (worker, image) nao available de chay
 
     options{
-        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
-        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5')) // khi thuc hien qua nhieu lenh buil
+        // gay ton storage de log lai. Noi voi Jenkin de giu lai 5 lan build, 5 ngay gan nhat -? optimize storage,
+        // tranh giu lai qua nhieu log info.
+        timestamps() // hien ra thoi gian tung cau lenh cua jenkins chay
     }
 
     environment{
@@ -23,6 +25,18 @@ pipeline {
                 sh 'pip install -r requirements.txt && pytest'
             }
         }
+        // stage('Test') {
+        //     steps {
+        //         parallel(
+        //             test1: {
+        //                 echo "Testing something 1 ..."
+        //             },
+        //             test2: {
+        //                 echo "Testing something 2 ..."
+        //             }
+        //         )
+        //     }
+        // }
         stage('Build') {
             steps {
                 script {
