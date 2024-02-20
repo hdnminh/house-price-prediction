@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Test') {
+            steps {
+                echo 'Testing something..'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building something..'
+
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // input "Approve or not?" input in jenkins file
+                echo 'Deploying something..'
+            }
+        }
+    }
+}
