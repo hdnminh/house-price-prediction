@@ -27,7 +27,7 @@ pipeline {
         }
         // stage('Test') {
         //     steps {
-        //         parallel(
+        //         parallel( # chay nhieu lenh cung luc
         //             test1: {
         //                 echo "Testing something 1 ..."
         //             },
