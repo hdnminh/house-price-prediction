@@ -15,19 +15,19 @@ pipeline {
 
     stages {
         stage('Test') {
-            agent { # chon agent nao de chay stage nay
-                docker { # chon docker image nao de chay stage nay
+            agent { // chon agent nao de chay stage nay
+                docker { // chon docker image nao de chay stage nay
                     image 'python:3.8' 
                 }
             }
-            steps { # cac lenh thuc hien trong stage nay
+            steps { // cac lenh thuc hien trong stage nay
                 echo 'Testing model correctness..'
                 sh 'pip install -r requirements.txt && pytest'
             }
         }
         // stage('Test') {
         //     steps {
-        //         parallel( # chay nhieu lenh cung luc
+        //         parallel( // chay nhieu lenh cung luc
         //             test1: {
         //                 echo "Testing something 1 ..."
         //             },
@@ -37,21 +37,21 @@ pipeline {
         //         )
         //     }
         // }
-        stage('Build') { # stage build
-            steps { # cac lenh thuc hien trong stage nay
-                script { # chay script
+        stage('Build') { // stage build
+            steps { // cac lenh thuc hien trong stage nay
+                script { // chay script
                     echo 'Building image for deployment..'
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"  # tao image moi voi tag la build number
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"  // tao image moi voi tag la build number
                     echo 'Pushing image to dockerhub..'
-                    docker.withRegistry( '', registryCredential ) { # push image len dockerhub
+                    docker.withRegistry( '', registryCredential ) { // push image len dockerhub
                         dockerImage.push()
                         dockerImage.push('latest')
                     }
                 }
             }
         }
-        stage('Deploy') {# stage deploy
-            steps { # cac lenh thuc hien trong stage nay
+        stage('Deploy') {// stage deploy
+            steps { // cac lenh thuc hien trong stage nay
                 echo 'Deploying models..'
                 echo 'Running a script to trigger pull and start a docker container'
             }
